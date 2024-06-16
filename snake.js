@@ -40,15 +40,18 @@ function update() {
     context.fillStyle = 'red'
     context.fillRect(foodX, foodY, blockSize, blockSize)
 
+    // hit food
     if (snakeX === foodX && snakeY === foodY) {
         snakeBody.push([foodX, foodY])
         placeFood()
     }
 
+    // move snake body
     for(let i = snakeBody.length - 1; i > 0; i--) {
         snakeBody[i] = snakeBody[i-1]
     }
 
+    // move snake head
     if (snakeBody.length > 0) {
         snakeBody[0] = [snakeX, snakeY]
     }
@@ -58,15 +61,18 @@ function update() {
     snakeY += velocityY * blockSize
     context.fillRect(snakeX, snakeY, blockSize, blockSize)
 
+    // draw snake body
     for (var i = 0; i < snakeBody.length; i++) {
         context.fillRect(snakeBody[i][0], snakeBody[i][1], blockSize, blockSize)
     }
 
+    // check if snake is out of bounds
     if (snakeX < 0 || snakeX > cols*blockSize || snakeY < 0 || snakeY > rows*blockSize) {
         gameOver = true
         alert('Game Over')
     }
 
+    // check if snake hit itself
     for (var i = 0; i < snakeBody.length; i++) {
         if (snakeX === snakeBody[i][0] && snakeY === snakeBody[i][1]) {
             gameOver = true
