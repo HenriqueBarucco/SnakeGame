@@ -27,7 +27,10 @@ window.onload = function() {
     context = board.getContext('2d')
 
     placeFood()
-    document.addEventListener('keyup', changeDirection)
+    document.addEventListener('keyup', (event) => {
+        changeDirection(event)
+        update()
+    })
     setInterval(update, 1000/10)
 }
 
@@ -86,8 +89,6 @@ function changeDirection(event) {
         velocityX = 1;
         velocityY = 0;
     }
-
-    update()
 }
 
 function placeFood() {
