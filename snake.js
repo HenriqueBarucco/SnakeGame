@@ -18,6 +18,8 @@ var snakeBody = []
 var foodX
 var foodY
 
+var score = 0
+
 var gameOver = false
 
 window.onload = function() {
@@ -45,6 +47,8 @@ function update() {
 
     // hit food
     if (snakeX === foodX && snakeY === foodY) {
+        increaseScore()
+        
         snakeBody.push([foodX, foodY])
         placeFood()
     }
@@ -71,6 +75,7 @@ function update() {
 
     if (checkSnakeIsOutOfBounds() || checkSnakeHitItself()) {
         gameOver = true
+        score = 0
         alert('Game Over')
     }
 }
@@ -108,4 +113,9 @@ function checkSnakeHitItself() {
     }
 
     return false
+}
+
+function increaseScore() {
+    score++
+    document.getElementById('score').innerText = score
 }
