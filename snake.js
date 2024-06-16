@@ -66,18 +66,9 @@ function update() {
         context.fillRect(snakeBody[i][0], snakeBody[i][1], blockSize, blockSize)
     }
 
-    // check if snake is out of bounds
-    if (snakeX < 0 || snakeX > cols*blockSize || snakeY < 0 || snakeY > rows*blockSize) {
+    if (checkSnakeIsOutOfBounds() || checkSnakeHitItself()) {
         gameOver = true
         alert('Game Over')
-    }
-
-    // check if snake hit itself
-    for (var i = 0; i < snakeBody.length; i++) {
-        if (snakeX === snakeBody[i][0] && snakeY === snakeBody[i][1]) {
-            gameOver = true
-            alert('Game Over')
-        }
     }
 }
 
@@ -102,4 +93,18 @@ function changeDirection(event) {
 function placeFood() {
     foodX = Math.floor(Math.random() * cols) * blockSize
     foodY = Math.floor(Math.random() * rows) * blockSize
+}
+
+function checkSnakeIsOutOfBounds() {
+    return snakeX < 0 || snakeX > cols*blockSize || snakeY < 0 || snakeY > rows*blockSize
+}
+
+function checkSnakeHitItself() {
+    for (var i = 0; i < snakeBody.length; i++) {
+        if (snakeX === snakeBody[i][0] && snakeY === snakeBody[i][1]) {
+            return true
+        }
+    }
+
+    return false
 }
