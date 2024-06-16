@@ -37,18 +37,23 @@ window.onload = function() {
 }
 
 function update() {
-    if (gameOver) return
+    if (gameOver) {
+        document.getElementById("btn").hidden = false
+        return
+    }
 
+    // background
     context.fillStyle = 'black'
     context.fillRect(0, 0, board.width, board.height)
 
+    // food
     context.fillStyle = 'red'
     context.fillRect(foodX, foodY, blockSize, blockSize)
 
     // hit food
     if (snakeX === foodX && snakeY === foodY) {
         increaseScore()
-        
+
         snakeBody.push([foodX, foodY])
         placeFood()
     }
@@ -75,7 +80,6 @@ function update() {
 
     if (checkSnakeIsOutOfBounds() || checkSnakeHitItself()) {
         gameOver = true
-        score = 0
         alert('Game Over')
     }
 }
@@ -118,4 +122,8 @@ function checkSnakeHitItself() {
 function increaseScore() {
     score++
     document.getElementById('score').innerText = score
+}
+
+function handleTryAgain() {
+    window.location.reload()
 }
